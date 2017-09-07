@@ -345,7 +345,9 @@
         this.infiniteTimer = setInterval(() => {
           let {left, top, zoom} = this.scroller.getValues()
 
-          if (top + 60 > this.content.offsetHeight - this.container.clientHeight) {
+          let flag = this.content.offsetHeight && this.container.clientHeight // 宽高不为0
+          flag = flag && (top + 60 > this.content.offsetHeight - this.container.clientHeight )
+          if (flag) {
             if (this.loadingState) return
             this.loadingState = 1
             this.showLoading = true
@@ -377,7 +379,9 @@
       
       this.resizeTimer = setInterval(() => {
         let {width, height} = contentSize()
-        if (width !== content_width || height !== content_height) {
+        let flag = width !== content_width || height !== content_height
+        flag = flag && width && height // 宽高不为0
+        if (flag) {
           content_width = width
           content_height = height
           this.resize()
